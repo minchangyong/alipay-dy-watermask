@@ -1,0 +1,119 @@
+<view class="page-container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="logo-container">
+      <text class="logo-title">一键去水印工具</text>
+    </view>
+    <text class="subtitle">一键解析 · 无水印下载</text>
+  </view>
+  
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 步骤指示器 -->
+    <view class="steps-container">
+      <view class="step-item {{step === 1 ? 'step-active' : ''}}">
+        <view class="step-icon">1</view>
+        <text class="step-text">粘贴链接</text>
+      </view>
+      <view class="step-item {{step === 2 ? 'step-active' : ''}}">
+        <view class="step-icon">2</view>
+        <text class="step-text">解析视频</text>
+      </view>
+      <view class="step-item {{step === 3 ? 'step-active' : ''}}">
+        <view class="step-icon">3</view>
+        <text class="step-text">下载保存</text>
+      </view>
+    </view>
+    
+    <!-- 链接输入区域 -->
+    <view class="input-container {{isInputFocus ? 'input-container-active' : ''}}">
+      <textarea 
+        class="url-input" 
+        value="{{videoUrl}}" 
+        placeholder="请输入或粘贴视频分享链接" 
+        placeholder-style="color: #888888;"
+        onInput="onUrlInput"
+        onFocus="onInputFocus"
+        onBlur="onInputBlur"
+        maxlength="1000"
+      />
+      <!-- <view class="paste-btn" onTap="onClear">清空</view> -->
+    </view>
+    
+    <!-- 解析按钮 -->
+    <view class="parse-btn" onTap="onParseTap">
+      <text>解析视频</text>
+    </view>
+    
+    <!-- 加载中 -->
+    <view class="loading-container" a:if="{{isLoading}}">
+      <view class="spinner"></view>
+      <text>正在解析视频，请稍候...</text>
+    </view>
+    
+    <!-- 解析结果 -->
+    <view class="result-container" a:if="{{showResult}}">
+      <view class="result-title">
+        <text>✓</text>
+        <text>解析成功</text>
+      </view>
+      
+      <!-- 视频预览 -->
+      <view class="video-preview">
+        <video 
+          a:if="{{videoInfo.videoUrl}}"
+          src="{{videoInfo.videoUrl}}"
+          controls
+          autoplay=
+          poster="{{videoInfo.coverUrl}}"
+        />
+        <view a:else class="placeholder-video">
+          <view class="placeholder-icon">▶</view>
+        </view>
+      </view>
+      
+      <!-- 视频信息 -->
+      <view class="video-info">
+        <view class="info-item">
+          <text class="info-label">作者：</text>
+          <text class="info-value">{{videoInfo.author || '@抖音用户'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">标题：</text>
+          <text class="info-value">{{videoInfo.title || '抖音精彩视频'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">点赞数：</text>
+          <text class="info-value">{{videoInfo.like || '未获取到数据'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">发布时间：</text>
+          <text class="info-value">{{videoInfo.time || '未获取到数据'}}</text>
+        </view>
+      </view>
+      
+      <!-- 操作按钮 -->
+      <view class="action-buttons">
+        <view class="download-btn" onTap="onDownloadTap">
+          <text>下载视频</text>
+        </view>
+        <view class="copy-btn" onTap="onCopyTap">
+          <text>复制链接</text>
+        </view>
+      </view>
+      
+      <!-- 成功消息 -->
+      <view class="success-message" a:if="{{showSuccessMessage}}">
+        <text>✓ 视频链接已复制到剪贴板！</text>
+      </view>
+    </view>
+  </view>
+  <view class="service" onTap="contactService">客服</view>
+  <!-- 页脚 -->
+  <view class="footer">
+    <text>本工具仅用于学习交流，请勿用于商业用途</text>
+    <view class="mt-1">
+      <text>© 2026 去水印工具</text>
+    </view>
+  </view>
+</view>

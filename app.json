@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "defaultTitle": "视频去水印工具",
+    "titleBarColor": "#000000",
+    "backgroundColor": "#000000"
+  }
+}

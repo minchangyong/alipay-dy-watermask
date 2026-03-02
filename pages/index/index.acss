@@ -1,0 +1,341 @@
+/* 首页样式 */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #121212 100%);
+}
+
+.header {
+  background: linear-gradient(90deg, #FF0050 0%, #FF0000 100%);
+  padding: 40rpx 30rpx;
+  border-radius: 0 0 40rpx 40rpx;
+  box-shadow: 0 10rpx 30rpx rgba(255, 0, 80, 0.3);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.logo-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.logo-title {
+  color: #FFFFFF;
+  font-size: 40rpx;
+  font-weight: bold;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.content {
+  padding: 40rpx 30rpx;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 40rpx 0 60rpx;
+  position: relative;
+}
+
+.steps-container::before {
+  content: '';
+  position: absolute;
+  top: 40rpx;
+  left: 10%;
+  right: 10%;
+  height: 6rpx;
+  background-color: #333333;
+  z-index: 1;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  flex: 1;
+}
+
+.step-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777777;
+  font-weight: bold;
+  font-size: 36rpx;
+  margin-bottom: 20rpx;
+  border: 4rpx solid #000000;
+  transition: all 0.3s ease;
+}
+
+.step-active .step-icon {
+  background: linear-gradient(135deg, #FF0050 0%, #FF0000 100%);
+  color: #FFFFFF;
+  transform: scale(1.1);
+  box-shadow: 0 8rpx 20rpx rgba(255, 0, 80, 0.4);
+}
+
+.step-text {
+  font-size: 24rpx;
+  color: #777777;
+  transition: all 0.3s ease;
+}
+
+.step-active .step-text {
+  color: #FF0050;
+  font-weight: 600;
+}
+
+.input-container {
+  background-color: rgba(50, 50, 50, 0.7);
+  border: 2rpx solid #333333;
+  border-radius: 20rpx;
+  padding: 10rpx 20rpx;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.input-container-active {
+  border-color: #FF0050;
+  box-shadow: 0 0 0 6rpx rgba(255, 0, 80, 0.2);
+}
+
+.url-input {
+  flex: 1;
+  height: 120rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.paste-btn {
+  background: linear-gradient(90deg, #FF0050 0%, #FF0000 100%);
+  color: #FFFFFF;
+  padding: 16rpx 30rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+  font-size: 24rpx;
+  transition: all 0.3s ease;
+}
+
+.paste-btn:active {
+  opacity: 0.8;
+  transform: translateY(2rpx);
+}
+
+.parse-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #FF0050 0%, #FF0000 100%);
+  color: #FFFFFF;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+  font-size: 32rpx;
+  text-align: center;
+  margin-top: 40rpx;
+  box-shadow: 0 10rpx 30rpx rgba(255, 0, 80, 0.3);
+  transition: all 0.3s ease;
+}
+
+.parse-btn:active {
+  opacity: 0.9;
+  transform: translateY(4rpx);
+  box-shadow: 0 6rpx 20rpx rgba(255, 0, 80, 0.4);
+}
+
+.loading-container {
+  padding: 60rpx 0;
+  text-align: center;
+}
+
+.spinner {
+  width: 100rpx;
+  height: 100rpx;
+  border: 8rpx solid rgba(255, 255, 255, 0.1);
+  border-top: 8rpx solid #FF0050;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 30rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.result-container {
+  background-color: rgba(25, 25, 25, 0.9);
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-top: 40rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.result-title {
+  color: #FF0050;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.video-preview {
+  width: 100%;
+  height: 400rpx;
+  background-color: #000000;
+  border-radius: 20rpx;
+  overflow: hidden;
+  margin-bottom: 30rpx;
+  position: relative;
+}
+
+.video-preview video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-info {
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  font-size: 24rpx;
+}
+
+.info-label {
+  width: 120rpx;
+  color: #AAAAAA;
+  flex-shrink: 0;
+}
+
+.info-value {
+  flex: 1;
+  color: #FFFFFF;
+  word-break: break-all;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.download-btn {
+  flex: 1;
+  background: linear-gradient(90deg, #00C853 0%, #009624 100%);
+  color: #FFFFFF;
+  padding: 25rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+  font-size: 28rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.download-btn:active {
+  opacity: 0.9;
+  transform: translateY(2rpx);
+}
+
+.copy-btn {
+  flex: 1;
+  background-color: rgba(60, 60, 60, 0.7);
+  color: #FFFFFF;
+  padding: 25rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+  font-size: 28rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:active {
+  opacity: 0.9;
+  transform: translateY(2rpx);
+}
+
+.success-message {
+  background-color: rgba(0, 200, 83, 0.2);
+  border: 2rpx solid #00C853;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-top: 30rpx;
+  text-align: center;
+  color: #00C853;
+  font-size: 26rpx;
+}
+
+.footer {
+  text-align: center;
+  padding: 40rpx 20rpx;
+  font-size: 22rpx;
+  color: #666666;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.05);
+  margin-top: 40rpx;
+}
+
+.placeholder-video {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #222222 0%, #000000 100%);
+}
+
+.placeholder-icon {
+  width: 120rpx;
+  height: 120rpx;
+  color: #FF0050;
+}
+
+.service {
+  width: 150rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 0;
+  bottom: 200rpx;
+  background: linear-gradient(90deg, #FF0050 0%, #FF0000 100%);
+  border-radius: 40rpx 0 0 40rpx;
+  color: #FFF;
+  font-size: 28rpx;
+  font-weight: bold;
+}
