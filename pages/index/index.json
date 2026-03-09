@@ -1,6 +1,6 @@
 {
-  "defaultTitle": "视频去水印",
-  "transparentTitle": "none",
+  "defaultTitle": "",
+  "transparentTitle": "auto",
   "titlePenetrate": "NO",
   "allowsBounceVertical": "NO"
 }
