@@ -249,7 +249,7 @@ Page({
               like: data.like_count || '',
               time: data.time || data.create_time || '',
               videoUrl: data.video_url || '',
-              coverUrl: data.cover || ''
+              coverUrl: data.cover_url || ''
             },
             step: 3,
             resultAnimation: animation.export()

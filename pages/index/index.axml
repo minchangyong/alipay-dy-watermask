@@ -74,7 +74,7 @@
         <textarea 
           class="url-input" 
           value="{{videoUrl}}" 
-          placeholder="粘贴视频分享链接或直接输入URL..." 
+          placeholder="粘贴视频分享链接或直接输入URL,支持抖音、快手、B站、微博、小红书视频..." 
           placeholder-style="color: rgba(255,255,255,0.4); font-style: italic;"
           onInput="onUrlInput"
           onFocus="onInputFocus"
@@ -154,6 +154,7 @@
             controls
             autoplay="{{false}}"
             poster="{{videoInfo.coverUrl}}"
+            poster-size="cover"
             class="preview-video"
             enable-play-gesture
             show-center-play-btn
