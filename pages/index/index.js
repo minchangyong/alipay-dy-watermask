@@ -260,12 +260,7 @@ Page({
                 console.log(res)
               }
             })
-          });
-
-          my.showToast({
-            type: 'success',
-            content: '解析成功'
-          });
+          })
         } else {
           this.setData({
             isLoading: false,
@@ -329,6 +324,9 @@ Page({
           type: 'fail',
           content: '保存失败: ' + (err.errMsg || JSON.stringify(err))
         });
+      },
+      complete: () => {
+        my.hideLoading()
       }
     });
   },
