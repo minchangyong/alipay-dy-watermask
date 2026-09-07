@@ -1,3 +1,11 @@
 {
-  "format": 2
+  "format": 2,
+  "compileOptions": {
+    "component2": true
+  },
+  "developOptions": {
+    "hotReload": true,
+    "lazyCompile": false,
+    "parallel": false
+  }
 }

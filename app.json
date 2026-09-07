@@ -3,8 +3,10 @@
     "pages/index/index"
   ],
   "window": {
-    "defaultTitle": "视频去水印工具",
-    "titleBarColor": "#000000",
-    "backgroundColor": "#000000"
-  }
+    "defaultTitle": "Table 组件测试",
+    "titleBarColor": "#1677ff",
+    "backgroundColor": "#f5f5f5"
+  },
+  "enablePolyfill": false,
+  "lazyCodeLoading": "renderedComponents"
 }

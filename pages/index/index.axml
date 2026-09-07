@@ -18,7 +18,7 @@
       </view>
     </view>
   </view>
-  
+
   <!-- 动态背景元素 -->
   <view class="background-elements">
     <view class="bg-circle circle-1"></view>
@@ -26,55 +26,67 @@
     <view class="bg-circle circle-3"></view>
     <view class="bg-grid"></view>
   </view>
-  
+
   <!-- 主内容区 -->
   <view class="content">
     <!-- 进度向导 -->
     <view class="process-stepper">
       <view class="stepper-line"></view>
       <view class="step-items">
-        <view class="step-item {{step === 1 ? 'step-active' : ''}}" onTap="setStep" data-step="1">
+        <view
+          class="step-item {{step === 1 ? 'step-active' : ''}}"
+          onTap="setStep"
+          data-step="1"
+        >
           <view class="step-outer">
             <view class="step-inner">
               <text class="step-number">1</text>
-              <view class="step-glow" a:if="{{step === 1}}"></view>
+              <view a:if="{{step === 1}}" class="step-glow"></view>
             </view>
           </view>
           <text class="step-label">粘贴链接</text>
-          <view class="step-connect" a:if="{{step >= 2}}"></view>
+          <view a:if="{{step >= 2}}" class="step-connect"></view>
         </view>
-        
-        <view class="step-item {{step === 2 ? 'step-active' : ''}}" onTap="setStep" data-step="2">
+
+        <view
+          class="step-item {{step === 2 ? 'step-active' : ''}}"
+          onTap="setStep"
+          data-step="2"
+        >
           <view class="step-outer">
             <view class="step-inner">
               <text class="step-number">2</text>
-              <view class="step-glow" a:if="{{step === 2}}"></view>
+              <view a:if="{{step === 2}}" class="step-glow"></view>
             </view>
           </view>
           <text class="step-label">智能解析</text>
-          <view class="step-connect" a:if="{{step >= 3}}"></view>
+          <view a:if="{{step >= 3}}" class="step-connect"></view>
         </view>
-        
-        <view class="step-item {{step === 3 ? 'step-active' : ''}}" onTap="setStep" data-step="3">
+
+        <view
+          class="step-item {{step === 3 ? 'step-active' : ''}}"
+          onTap="setStep"
+          data-step="3"
+        >
           <view class="step-outer">
             <view class="step-inner">
               <text class="step-number">3</text>
-              <view class="step-glow" a:if="{{step === 3}}"></view>
+              <view a:if="{{step === 3}}" class="step-glow"></view>
             </view>
           </view>
           <text class="step-label">下载保存</text>
         </view>
       </view>
     </view>
-    
+
     <!-- 输入卡片 -->
     <view class="input-card {{isInputFocus ? 'input-card-focus' : ''}}">
       <view class="card-glow"></view>
-      <view class="card-content">      
-        <textarea 
-          class="url-input" 
-          value="{{videoUrl}}" 
-          placeholder="粘贴视频分享链接或直接输入URL,支持抖音、快手、B站、微博、小红书视频..." 
+      <view class="card-content">
+        <textarea
+          class="url-input"
+          value="{{videoUrl}}"
+          placeholder="支持抖音、快手、小红书、bilibili、油管、TikTok、西瓜视频、好看视频、微视、梨视频、a站、知乎、绿洲、美拍、全民、虎牙、推特、ins、豆包..."
           placeholder-style="color: rgba(255,255,255,0.4); font-style: italic;"
           onInput="onUrlInput"
           onFocus="onInputFocus"
@@ -82,7 +94,7 @@
           maxlength="1000"
           auto-height
         />
-        
+
         <view class="input-actions">
           <view class="action-btn action-clear" onTap="onClear" hover-class="btn-hover">
             <text class="action-icon">🗑️</text>
@@ -93,26 +105,31 @@
             <text>粘贴</text>
           </view>
         </view>
-        
+
         <view class="input-hint">
           <text>提示：长按输入框可快速粘贴剪贴板内容</text>
         </view>
       </view>
     </view>
-    
+
     <!-- 解析按钮 -->
-    <view class="parse-button-container" onTap="onParseTap" hover-class="btn-scale">
+    <view class="parse-button-container" hover-class="btn-scale">
       <view class="parse-button-glow"></view>
-      <view class="parse-button {{isLoading ? 'parse-button-loading' : ''}}">
+      <view class="parse-button active {{isLoading ? 'parse-button-loading' : ''}}" data-index="{{0}}" onTap="onParseTap">
         <view class="button-content">
-          <view class="button-spinner" a:if="{{isLoading}}"></view>
+          <view a:if="{{isLoading}}" class="button-spinner"></view>
+          <text class="button-text">{{isLoading ? '解析中...' : '开始解析并下载'}}</text>
+        </view>
+      </view>
+      <view class="parse-button {{isLoading ? 'parse-button-loading' : ''}}" data-index="{{1}}" onTap="onParseTap" >
+        <view class="button-content">
+          <view a:if="{{isLoading}}" class="button-spinner"></view>
           <text class="button-text">{{isLoading ? '解析中...' : '开始智能解析'}}</text>
         </view>
       </view>
     </view>
-    
     <!-- 加载动画 -->
-    <view class="loading-overlay" a:if="{{isLoading}}">
+    <view a:if="{{isLoading}}" class="loading-overlay">
       <view class="loading-modal">
         <view class="neural-loading">
           <view class="neural-dots">
@@ -126,9 +143,9 @@
         </view>
       </view>
     </view>
-    
+
     <!-- 结果展示 -->
-    <view class="result-card" a:if="{{showResult}}" animation="{{resultAnimation}}">
+    <view a:if="{{showResult}}" class="result-card" animation="{{resultAnimation}}">
       <view class="result-header">
         <view class="result-badge">
           <text class="badge-icon">✅</text>
@@ -139,7 +156,7 @@
           <text>高清 · 无水印</text>
         </view>
       </view>
-      
+
       <!-- 视频预览 -->
       <view class="video-preview-container">
         <view class="preview-frame">
@@ -147,8 +164,8 @@
           <view class="preview-corner corner-tr"></view>
           <view class="preview-corner corner-bl"></view>
           <view class="preview-corner corner-br"></view>
-          
-          <video 
+
+          <video
             a:if="{{videoInfo.videoUrl}}"
             src="{{videoInfo.videoUrl}}"
             controls
@@ -163,14 +180,14 @@
             <view class="placeholder-icon">▶</view>
             <text class="placeholder-text">视频预览</text>
           </view>
-          
+
           <view class="preview-overlay">
-            <view class="overlay-badge">1080P</view>
+            <view class="overlay-badge">{{videoInfo.quality}}</view>
             <view class="overlay-badge">60FPS</view>
           </view>
         </view>
       </view>
-      
+
       <!-- 视频信息 -->
       <view class="video-info-card">
         <view class="info-header">
@@ -181,7 +198,7 @@
             </view>
           </view>
         </view>
-        
+
         <view class="info-grid">
           <view class="info-item">
             <text class="info-label">👤 作者</text>
@@ -201,10 +218,15 @@
           </view>
         </view>
       </view>
-      
+
       <!-- 操作按钮组 -->
       <view class="action-buttons">
-        <view class="action-button primary" onTap="onDownloadTap" hover-class="btn-press" hover-stay-time="100">
+        <view
+          class="action-button primary"
+          onTap="onDownloadTap"
+          hover-class="btn-press"
+          hover-stay-time="100"
+        >
           <view class="button-glow"></view>
           <view class="button-content">
             <text class="button-icon">⬇️</text>
@@ -212,8 +234,13 @@
           </view>
           <text class="button-hint">保存到相册</text>
         </view>
-        
-        <view class="action-button secondary" onTap="onCopyTap" hover-class="btn-press" hover-stay-time="100">
+
+        <view
+          class="action-button secondary"
+          onTap="onCopyTap"
+          hover-class="btn-press"
+          hover-stay-time="100"
+        >
           <view class="button-content">
             <text class="button-icon">📋</text>
             <text class="button-text">复制链接</text>
@@ -221,7 +248,7 @@
           <text class="button-hint">分享给好友</text>
         </view>
       </view>
-      
+
       <!-- 成功提示 -->
       <view class="success-toast {{showSuccessMessage ? 'show' : ''}}" animation="{{toastAnimation}}">
         <view class="toast-content">
@@ -231,22 +258,14 @@
       </view>
     </view>
   </view>
-  
+
   <!-- 客服按钮 -->
-  <view class="service-button" onTap="contactService" hover-class="btn-scale" hover-stay-time="50">
-    <view class="service-glow"></view>
-    <text class="service-text">在线客服</text>
-  </view>
-  
+  <!--<view class="service-button" onTap="contactService" hover-class="btn-scale" hover-stay-time="50"><view class="service-glow"></view><text class="service-text">在线客服</text></view> -->
+
   <!-- 页脚 -->
   <view class="footer">
     <view class="footer-content">
       <text class="footer-text">© 2026 Neural AI Studio • 智能去水印工具</text>
-      <view class="footer-links">
-        <text class="footer-link" onTap="goAbout">关于我们</text>
-        <text class="footer-separator">|</text>
-        <text class="footer-link" onTap="goPrivacy">隐私政策</text>
-      </view>
       <text class="footer-notice">本工具仅供学习交流，禁止用于商业用途</text>
     </view>
   </view>

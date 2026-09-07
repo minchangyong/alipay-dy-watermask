@@ -78,7 +78,9 @@ App({
   // 全局数据
   globalData: {
     userInfo: null,
-    apiBaseUrl: 'https://api.example.com', // 替换为实际API地址
+    apiBaseUrl: 'https://api-new.ifphp.com',
+    parseApiPath: '/api/dyjx',
+    apiKey: 'bp_live_050a52404b114b9ad28f54d96585ad4676ccb77766c3c66f227db6139fc7d831',
     appVersion: '1.0.0'
   }
 });

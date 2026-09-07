@@ -1,3 +1,5 @@
+const app = getApp();
+
 Page({
   data: {
     // 步骤状态
@@ -98,12 +100,8 @@ Page({
         if (res.text) {
           this.setData({
             videoUrl: res.text
-          });
-          
-          my.showToast({
-            type: 'success',
-            content: '已粘贴剪贴板内容'
-          });
+          })
+          my.hideToast()
         } else {
           my.showToast({
             type: 'fail',
@@ -125,7 +123,7 @@ Page({
     let progress = 0;
     
     this.data.loadingTimer = setInterval(() => {
-      progress += Math.floor(Math.random() * 10) + 5;
+      progress += Math.floor(Math.random() * 10) + 2;
       if (progress > 100) progress = 100;
       
       this.setData({
@@ -135,7 +133,7 @@ Page({
       if (progress >= 100) {
         clearInterval(this.data.loadingTimer);
       }
-    }, 200);
+    }, 300);
   },
 
   /**
@@ -150,7 +148,8 @@ Page({
   },
 
   // 解析按钮点击事件
-  onParseTap() {
+  onParseTap(e) {
+    const { dataset: { index = 0 } = {}} = e.currentTarget
     const input = this.data.videoUrl;
     const url = this.extractLink(input);
 
@@ -173,49 +172,15 @@ Page({
 
     // 开始模拟加载进度
     this.simulateLoadingProgress();
-
-    // 平台映射配置
-    const platformMap = {
-      xiaohongshu: {
-        url: 'https://api.317ak.cn/api/spjx/xhs',
-        useRawInput: true
-      },
-      xhslink: {
-        url: 'https://api.317ak.cn/api/spjx/xhs',
-        useRawInput: true
-      },
-      kuaishou: {
-        url: 'https://api.317ak.cn/api/spjx/ksjx'
-      },
-      b23: {
-        url: 'https://api.317ak.cn/api/spjx/bljx'
-      },
-      weibo: {
-        url: 'https://api.317ak.cn/api/spjx/wbjx'
-      },
-      default: {
-        url: 'https://api.317ak.cn/api/spjx/dyjx'
-      }
-    };
-
-    // 匹配平台
-    let platformKey = 'default';
-    for (const key in platformMap) {
-      if (input.includes(key)) {
-        platformKey = key;
-        break;
-      }
-    }
-
-    const config = platformMap[platformKey];
+    const { apiBaseUrl, parseApiPath, apiKey } = app.globalData;
     const postData = {
-      url: config.useRawInput ? input : url,
-      ckey: 'F5DHS00LB4Q0W3FA1SI4'
+      key: apiKey,
+      url
     };
 
     // 调用实际API
     my.request({
-      url: config.url,
+      url: `${apiBaseUrl}${parseApiPath}`,
       method: 'GET',
       data: postData,
       success: (res) => {
@@ -228,8 +193,11 @@ Page({
           loadingProgress: 100
         });
 
-        if (res.data && res.data.data) {
-          const data = res.data.data;
+        const response = res.data || {};
+        const code = Number(response.code);
+
+        if (response && (code === 0 || code === 200)) {
+          const data = response.data || response.result || {};
           
           // 播放结果入场动画
           const animation = my.createAnimation({
@@ -239,27 +207,63 @@ Page({
           
           animation.opacity(1).translateY(0).step();
 
+          // 安全访问字段，替代可选链
+          const name =
+            (data && data.auther) ||
+            (data && data.author && data.author.name) ||
+            (data && data.author) ||
+            '未知用户';
+
+          const title = (data && data.title) || '';
+
+          const like =
+            (data && data.like) ||
+            (data && data.extra && data.extra.statistics && data.extra.statistics.digg_count) ||
+            '';
+
+          const timeValue =
+            (data && data.time) ||
+            (data && data.publish_time) ||
+            (data && data.create_time) ||
+            (data && data.extra && data.extra.create_time * 1000);
+
+          const time = typeof timeValue === 'string'
+            ? timeValue
+            : timeValue
+              ? new Date(timeValue < 10000000000 ? timeValue * 1000 : timeValue).toLocaleString()
+              : '';
+
+          const videoUrl = (data && data.url) || '';
+          const coverUrl = (data && data.cover) || '';
+          const quality = (data && data.quality) || '1080P';
+
           // 更新UI
           this.setData({
             isLoading: false,
             showResult: true,
             videoInfo: {
-              name: data.name || '未知用户',
-              title: data.title || '',
-              like: data.like_count || '',
-              time: data.time || data.create_time || '',
-              videoUrl: data.video_url || '',
-              coverUrl: data.cover_url || ''
+              ...data,
+              name,
+              title,
+              like,
+              time,
+              videoUrl,
+              coverUrl,
+              quality
             },
             step: 3,
             resultAnimation: animation.export()
           }, () => {
-            my.pageScrollTo({
-              selector: '.result-card',
-              complete: res => {
-                console.log(res)
-              }
-            })
+            if (index === 0) {
+              this.onDownloadTap()
+            } else {
+              my.pageScrollTo({
+                selector: '.result-card',
+                complete: res => {
+                  console.log(res)
+                }
+              })
+            }
           })
         } else {
           this.setData({
@@ -269,7 +273,7 @@ Page({
 
           my.showToast({
             type: 'fail',
-            content: '解析失败'
+            content: response.msg || response.message || '解析失败'
           });
         }
       },
